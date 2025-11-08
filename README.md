@@ -40,11 +40,15 @@ JSON output:
 ⏱️ Completed in 1.89s  
 
 ## Notes
-- If latency is consistently high, consider switching to a regional RPC or dedicated node.  
-- Block age greater than 30s indicates possible sync delay or overloaded node.  
-- Works across all EVM-compatible networks.  
-- Use JSON output for CI/CD or RPC monitoring systems.  
-- Ideal for ensuring RPC soundness before zero-knowledge proof submission in **Aztec** or **Zama** deployments.  
-- Exit codes:  
-  `0` → Success  
-  `2` → RPC or block fetch error.  
+- **Latency Meaning:** Average latency measures how fast your RPC node responds to basic queries like `eth_blockNumber`. Low latency (<0.5s) indicates healthy RPC performance.  
+- **Block Age:** A block older than ~30 seconds usually signals the node is out of sync or connected to a congested network.  
+- **Timeouts:** If a node is slow or non-responsive, consider using an alternative RPC provider.  
+- **RPC Diversity:** You can test multiple endpoints (e.g., Infura, Alchemy, Blast, QuickNode) to find the most reliable one.  
+- **Automation:** Integrate this script into your CI/CD pipeline or monitoring system to detect degraded RPC performance early.  
+- **ZK Use Case:** In Aztec or Zama environments, consistent and responsive RPC nodes are critical for reproducible proofs and sound on-chain data.  
+- **L2s & Testnets:** Works seamlessly with Arbitrum, Optimism, Base, Polygon, and all EVM-based chains.  
+- **Advanced Monitoring:** You can extend the script to log results over time or compare block height across multiple RPCs to detect desynchronization.  
+- **Security Note:** Always use HTTPS RPC URLs for production or sensitive workloads.  
+- **Exit Codes:**  
+  - `0` → Success  
+  - `2` → RPC or block fetch failure.  
