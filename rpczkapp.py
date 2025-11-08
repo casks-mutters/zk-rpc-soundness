@@ -80,13 +80,19 @@ def main() -> None:
         print(f"❌ {e}")
         sys.exit(2)
 
-    # Fetch block info
-    try:
-        block = w3.eth.get_block("latest")
-        block_number = block.number
-        timestamp = block.timestamp
-    except Exception as e:
-        print(f"❌ Failed to fetch latest block: {e}")
+
+     #New: Retry fetching the latest block up to 3 times
+    for attempt in range(3):
+        try:
+            block = w3.eth.get_block("latest")
+            block_number = block.number
+            timestamp = block.timestamp
+            break
+        except Exception as e:
+            print(f"⚠️ Attempt {attempt + 1}/3 failed to fetch latest block: {e}")
+            time.sleep(2)
+    else:
+        print("❌ Failed to fetch latest block after 3 retries.")
         sys.exit(2)
 
     # Print metrics
